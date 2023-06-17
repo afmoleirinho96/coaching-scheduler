@@ -1,15 +1,10 @@
 
 
-# Frontend
-/frontend/node_modules/
-/frontend/.env
-/frontend/dist/
-/frontend/.angular
-/frontend/.vscode
-/frontend/.editorconfig
 
-/.idea
-/backend/dist/
-/backend/node_modules/
-/backend/.env
-/backend/.vscode
+*/node_modules/
+*/.env
+*/.vscode
+*/.editorconfig
+*/dist/
+*/.angular
+*/.idea
