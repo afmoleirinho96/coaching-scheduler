@@ -1,6 +1,6 @@
 import { IsEmail, IsNotEmpty, IsNumber } from "class-validator";
 import { ApiProperty } from '@nestjs/swagger';
-import { SlotDto } from './SlotDto';
+import { SlotDto } from './Slot.dto';
 
 
 export class CoachDto {
