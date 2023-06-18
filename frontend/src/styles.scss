@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+@media only screen and (max-width: 767px) {
+  .rootModal {
+    position: absolute !important;
+    bottom: 0 !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 100vh !important;
+    width: 100vw !important;
+    max-width: none !important;
+  }
+}
+
+
+// Bug related with TailwindCSS and Angular Material - a conflicts in between scss classes
+.mdc-notched-outline__notch {
+  border-right: none;
+}
