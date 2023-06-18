@@ -15,6 +15,6 @@ frontend/dist/
 */.vscode
 */.editorconfig
 */dist/
-*/.angular
+*/.angular/cache
 */.idea
 .idea

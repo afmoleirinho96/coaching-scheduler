@@ -1,0 +1,16 @@
+<div class="w-full h-full flex justify-end">
+  <mat-button-toggle-group class="my-8 mx-24 text-12 font-medium h-16 items-center border-none">
+
+
+    <mat-button-toggle
+      *ngFor="let viewMode of viewModes"
+      (click)="closeDialog()"
+      [routerLink]="[viewMode.routerLink]"
+      class="text-slate-500	"
+      routerLinkActive="mat-button-toggle-checked"
+    >
+      <mat-icon class="text-20 md:mr-10 toggle-icon">{{ viewMode.icon }}</mat-icon>
+      <p class="hidden md:inline md:pr-4">{{ viewMode.entity }}</p>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
