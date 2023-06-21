@@ -19,5 +19,5 @@ export class CoachDto {
 	email: string;
 
 	@ApiProperty({ type: [SlotDto] })
-	availableSlots?: SlotDto[];
+	slots?: SlotDto[];
 }

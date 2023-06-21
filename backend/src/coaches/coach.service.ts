@@ -22,7 +22,8 @@ export class CoachService {
 	async getCoachById(coachId: number): Promise<CoachDto> {
 		const coach = await this.coachRepository.findOne( {
 			where: { id: coachId },
-			relations: ['availableSlots'],
+			relations: ['slots'],
+			order: { slots: {startTime: 'ASC' }},
 		});
 
 		if (!coach) {

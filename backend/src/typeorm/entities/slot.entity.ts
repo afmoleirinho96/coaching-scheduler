@@ -18,7 +18,7 @@ export class Slot {
 	@Column({ type: 'enum', enum: SlotStatus, default: SlotStatus.Available })
 	status: SlotStatus;
 
-	@ManyToOne(() => Coach, coach => coach.availableSlots)
+	@ManyToOne(() => Coach, coach => coach.slots)
 	@JoinColumn({ name: 'coachId' })
 	coachId: number;
 

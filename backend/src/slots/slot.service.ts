@@ -20,9 +20,9 @@ export class SlotService {
 	async markAsAvailable(coachId: number, slotsDto: SlotsDto): Promise<SlotDto[]> {
 		await this.validateSlots(slotsDto);
 
-		const coach = await this.coachRepository.findOne( {
+		const coach: Coach = await this.coachRepository.findOne( {
 			where: { id: coachId },
-			relations: ['availableSlots'],
+			relations: ['slots'],
 		});
 
 		if (!coach) {
@@ -73,7 +73,7 @@ export class SlotService {
 			throw new NotFoundException(`Slot with ID "${id}" not found`);
 		}
 
-		slot.status = SlotStatus.Confirmed;
+		slot.status = SlotStatus.Scheduled;
 		const updatedSlot = await this.slotRepository.save(slot);
 
 		return plainToClass(SlotDto, updatedSlot);
