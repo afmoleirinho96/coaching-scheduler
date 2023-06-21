@@ -1,3 +1,5 @@
+import { Coach } from './coach.model';
+
 export interface ViewMode {
   icon: string;
   entity: EntityType;
@@ -17,11 +19,6 @@ export interface EntityModalData {
   isCreateMode: boolean;
 }
 
-export interface Coach {
-  name: string;
-  email: string;
-  expertises: string[];
-}
 
 export interface Student {
   name: string;
