@@ -22,10 +22,11 @@
 
       <button mat-stroked-button
               color="primary"
-              class="transition ease-in-out border-b-2  delay-300 hover:text-neutral-50 hover:!border-sky-900 duration-600"
+              class=" transition ease-in-out border-b-2  delay-300 hover:text-neutral-50  duration-600"
               [disabled]="form.invalid"
-              type="submit"
-      >Add Availability
+              [ngClass]=" {'!bg-sky-900 !text-white hover:!border-sky-900': form.valid}"
+              type="submit">
+        <mat-icon>add</mat-icon>Add Availability
       </button>
     </div>
   </form>

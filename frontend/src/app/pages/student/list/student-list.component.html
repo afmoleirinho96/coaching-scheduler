@@ -1,0 +1,11 @@
+<div class="flex flex-row flex-wrap">
+  <div class="flex-col absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center gap-y-4" *ngIf="!(students$ | async)">
+    <mat-spinner color="primary" diameter="50"></mat-spinner>
+    <p class="mt-8 text-[1em]">Loading Students...</p>
+  </div>
+  <cs-card
+    *ngFor="let student of students$ | async"
+    [data]="student"
+    (cardClicked)="onStudentClicked($event)"
+  ></cs-card>
+</div>

@@ -1,4 +1,6 @@
 import { Coach } from './coach.model';
+import { Student } from './student.model';
+import { Slot } from './slot.model';
 
 export interface ViewMode {
   icon: string;
@@ -13,14 +15,18 @@ export enum EntityType {
 
 export interface EntityModalData {
   entity: EntityType,
-
   entityData: Coach | Student
-
   isCreateMode: boolean;
 }
 
 
-export interface Student {
-  name: string;
-  email: string;
+export interface StudentBookingModalData {
+  coach: Coach;
+  student: Student
+  availabilities: Slot[]
+}
+
+export interface BookingConfirmModalData {
+  coachId: number;
+  slots: Slot[]
 }

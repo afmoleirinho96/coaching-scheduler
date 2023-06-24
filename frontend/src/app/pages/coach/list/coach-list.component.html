@@ -3,8 +3,9 @@
     <mat-spinner color="primary" diameter="50"></mat-spinner>
     <p class="mt-8 text-[1em]">Loading Coaches...</p>
   </div>
-  <cs-coach-card
+  <cs-card
     *ngFor="let coach of coaches$ | async"
-    [coach]="coach"
-  ></cs-coach-card>
+    [data]="coach"
+    (cardClicked)="onCoachClicked($event)"
+  ></cs-card>
 </div>

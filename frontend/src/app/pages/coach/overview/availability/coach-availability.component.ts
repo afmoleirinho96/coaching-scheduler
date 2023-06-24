@@ -1,10 +1,9 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SlotService } from '../../../../core/services/slot.service';
-import { Slot, SlotsRequestBody } from '../../../../core/models/slot.model';
+import { Slot, SlotsAvailableRequest } from '../../../../core/models/slot.model';
 import { Coach } from '../../../../core/models/coach.model';
 import { slotToHour } from '../../../../utils/date.utils';
 
@@ -30,7 +29,6 @@ export class CoachAvailabilityComponent {
 
   constructor(private slotsService: SlotService,
               private route: ActivatedRoute,
-              private location: Location,
               private cdr: ChangeDetectorRef,
               private fb: FormBuilder,
               private snackBar: MatSnackBar) { }
@@ -156,11 +154,11 @@ export class CoachAvailabilityComponent {
   }
 
   private markSlotAsAvailable(startTime: Date, endTime: Date) {
-    const requestBody: SlotsRequestBody = {
+    const requestBody: SlotsAvailableRequest = {
       slots: [{ startTime: startTime, endTime: endTime }]
     };
 
-    this.slotsService.markSlotsAsAvailable(1, requestBody).subscribe((slots: Slot[]) => {
+    this.slotsService.markSlotsAsAvailable(this.coach.id, requestBody).subscribe((slots: Slot[]) => {
       this.availabilityUpdated.emit(slots);
       this.resetForm();
     })

@@ -1,12 +1,10 @@
 <div class="w-full h-full flex justify-end">
   <mat-button-toggle-group class="my-8 mx-24 text-12 font-medium h-16 items-center border-none">
-
-
     <mat-button-toggle
       *ngFor="let viewMode of viewModes"
       (click)="closeDialog()"
       [routerLink]="[viewMode.routerLink]"
-      class="text-slate-500	"
+      class="text-zinc-800 hover:bg-slate-300"
       routerLinkActive="mat-button-toggle-checked"
     >
       <mat-icon class="text-20 md:mr-10 toggle-icon">{{ viewMode.icon }}</mat-icon>

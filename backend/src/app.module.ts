@@ -6,13 +6,15 @@ import { AppService } from './app.service';
 import { CoachModule } from './coaches/coach.module';
 import { SlotModule } from './slots/slot.module';
 import { typeOrmConfig } from './typeorm/config/database-config';
+import { StudentModule } from './students/student.module';
 
 @Module({
 	imports: [
 		ConfigModule.forRoot({ isGlobal: true }),
 		TypeOrmModule.forRootAsync(typeOrmConfig),
 		CoachModule,
-		SlotModule
+		SlotModule,
+		StudentModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],

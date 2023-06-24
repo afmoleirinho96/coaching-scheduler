@@ -2,18 +2,24 @@ import {
 	Entity,
 	Column,
 	PrimaryGeneratedColumn,
-	OneToMany,
+	OneToMany, JoinColumn,
 } from 'typeorm';
 import { Slot } from './slot.entity';
+import { BaseEntity } from './base.entity';
+
 
 @Entity()
-export class Student {
+export class Student extends BaseEntity{
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@Column({ length: 500 })
+	@Column({ length: 100 })
 	name: string;
 
-	@OneToMany(() => Slot, availableSlot => availableSlot.student)
-	bookedSlots: Slot[];
+	@Column({ length: 100 })
+	email: string;
+
+	@OneToMany(() => Slot, slot => slot.student)
+	@JoinColumn({ name: 'studentId' })
+	slots: Slot[];
 }

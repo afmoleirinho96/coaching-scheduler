@@ -19,9 +19,16 @@ export class Slot {
 	status: SlotStatus;
 
 	@ManyToOne(() => Coach, coach => coach.slots)
-	@JoinColumn({ name: 'coachId' })
+	@JoinColumn({ name: 'coachId', referencedColumnName: 'id' })
+	coach: Coach;
+
+	@Column()
 	coachId: number;
 
-	@ManyToOne(() => Student, { nullable: true })
-	student: Student | null;
+	@ManyToOne(() => Student, student => student.slots)
+	@JoinColumn({ name: 'studentId', referencedColumnName: 'id' })
+	student: Student;
+
+	@Column( {nullable: true})
+	studentId: number;
 }

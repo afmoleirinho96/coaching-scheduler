@@ -18,7 +18,7 @@ export class Coach extends BaseEntity {
 	@Column({ length: 500 })
 	email: string;
 
-	@OneToMany(() => Slot, slot => slot.coachId)
+	@OneToMany(() => Slot, slot => slot.coach)
 	@JoinColumn({ name: 'coachId' })
 	slots: Slot[];
 }

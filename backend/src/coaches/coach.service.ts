@@ -20,10 +20,10 @@ export class CoachService {
 	}
 
 	async getCoachById(coachId: number): Promise<CoachDto> {
-		const coach = await this.coachRepository.findOne( {
+		const coach: Coach = await this.coachRepository.findOne({
 			where: { id: coachId },
 			relations: ['slots'],
-			order: { slots: {startTime: 'ASC' }},
+			order: { slots: { startTime: 'ASC' } },
 		});
 
 		if (!coach) {
@@ -42,14 +42,6 @@ export class CoachService {
 		const coach = plainToClass(Coach, createCoachDTO);
 		const createdCoach = await this.coachRepository.save(coach);
 		return plainToClass(CoachDto, createdCoach);
-	}
-
-	async deleteCoach(id: number): Promise<void> {
-		const result = await this.coachRepository.delete(id);
-
-		if (result.affected === 0) {
-			throw new NotFoundException(`Coach with ID '${id}' not found`);
-		}
 	}
 
 }

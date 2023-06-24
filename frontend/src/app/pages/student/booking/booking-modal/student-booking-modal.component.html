@@ -1,0 +1,52 @@
+<mat-dialog-content class="!flex !flex-col !overflow-hidden h-[700px] !p-0 ">
+  <mat-toolbar cdkDragHandle class="cursor-move" color="primary">
+    <mat-toolbar-row class="flex justify-between">
+      <span class="font-bold">Booking Lessons</span>
+      <button [mat-dialog-close]="false" aria-label="Close dialog" mat-icon-button>
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div class="flex flex-col justify-between flex-grow m-8">
+
+    <div *ngIf="data.coach as selectedCoach" class="flex flex-col gap-y-4">
+      <p class="text-lg">
+        You are about to schedule {{data.availabilities.length}} lessons with coach:
+      </p>
+      <div class="py-2 px-2  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div class="px-6 mt-2 flex justify-between items-center">
+          <span class="font-bold text-lg text-zinc-800 mb-2">{{selectedCoach.name}}</span>
+          <p class="text-gray-700 text-base">
+            {{selectedCoach.email}}
+          </p>
+        </div>
+      </div>
+      <span class="flex text-xl text-sky-900 font-semibold mt-2">Time slots:</span>
+      <div class="flex flex-col gap-y-2 overflow-auto max-h-[200px]">
+
+        <div *ngFor="let slot of data.availabilities" class="flex ">
+          <div class="mr-2">
+            <span class="text-base text-zinc-800 font-bold"> {{slot.startTime | date: 'EEEE MMM d'}}</span>
+          </div>
+          <p class="text-base text-zinc-800">{{slot.startTime | date: 'h:mm a'}} </p>
+          <p class="px-2"> - </p>
+          <p class="text-base text-zinc-800">{{slot.endTime | date: 'h:mm a'}}  </p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="flex justify-end gap-x-4 my-8">
+      <button mat-stroked-button
+              class="px-4 py-2 bg-gray-500 text-white rounded-md"
+              (click)="closeModal()">Cancel
+      </button>
+      <button mat-flat-button color="primary"
+              class="px-4 py-2 bg-blue-500 text-white rounded-md mr-2"
+              (click)="save()">Save
+      </button>
+    </div>
+
+  </div>
+</mat-dialog-content>

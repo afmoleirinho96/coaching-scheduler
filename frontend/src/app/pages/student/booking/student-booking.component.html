@@ -1,0 +1,94 @@
+<div *ngIf="student" class="flex flex-col w-full">
+  <span class="text-2xl font-bold mb-4 text-sky-900">
+    Welcome back, {{student.name}}
+  </span>
+  <p class="text-lg">
+    Easily schedule coaching sessions from the comfort of your dashboard. Browse through our list of coaches, explore their availabilities,
+    and book a session that fits your schedule.
+  </p>
+
+  <div class="flex place-items-center my-4 gap-x-2">
+    <mat-icon>schedule</mat-icon>
+    <span class="text-base">Lessons are available from 8:00 AM to 9:30 PM, with the latest starting at 7:30 PM. Each lesson has a duration of 2 hours.</span>
+  </div>
+
+  <div class="flex flex-row justify-between mt-8">
+    <div class="flex-col w-1/3">
+      <span class="flex text-xl text-sky-900 font-semibold">Select a Coach</span>
+      <form [formGroup]="form">
+        <div class="flex gap-x-8 items-baseline mt-4">
+
+          <mat-form-field appearance="outline">
+            <mat-label>Coach</mat-label>
+            <mat-select formControlName="selectedCoach">
+              <mat-option *ngFor="let coach of coaches$ | async" [value]="coach">{{coach.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+
+    <ng-container *ngIf="coachDetails$ | async as selectedCoach">
+      <div class="flex-col w-2/3">
+        <span class="flex text-xl text-sky-900 font-semibold">Coach Info</span>
+        <div class="py-4 px-2 mt-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          <div class="px-6 mt-2 flex justify-between items-center">
+            <div class="font-bold text-lg mb-2">{{selectedCoach.name}}</div>
+            <p class="text-gray-700 text-base">
+              {{selectedCoach.email}}
+            </p>
+            <div class="flex justify-end">
+            <span class="inline-flex items-center text-xs font-normal text-gray-500 hover:underline dark:text-gray-400">
+             Member since {{ selectedCoach.createdAt | date }}
+           </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+
+  <div class="border border-b-zinc-300 my-4"></div>
+
+  <div *ngIf="selectedCoachAvailability$ | async as availability" class="flex w-full gap-x-8 mt-4">
+    <div class="flex flex-col w-full p-2 pb-0 mb-2 bg-gray-100 rounded-t-md">
+      <h2 class="flex items-center text-lg text-sky-900 font-semibold">
+        Availability
+      </h2>
+
+      <span class="text-lg" *ngIf="!hasAvailableSlots">
+        Unfortunately, {{selectedCoach.name}} doesn't have any available slots for lessons at the moment.
+        But don't let that discourage you! We have many other highly skilled professionals you can learn from.
+      </span>
+
+      <mat-chip-listbox multiple="true" class="overflow-auto max-h-[400px]">
+        <div *ngFor="let dateSlots of availability | keyvalue" class="flex flex-col w-full mt-2">
+          <div class="flex flex-row m-4 items-center">
+            <div class="min-w-[200px]">
+
+              <span class="flex text-lg font-semibold">{{dateSlots.key | date: 'EEEE, d MMMM'}}</span>
+            </div>
+            <div class="flex flex-row" *ngFor="let slot of dateSlots.value">
+              <mat-chip-option (selectionChange)="onChipSelectionChange(slot)">
+                {{slot.startTime | date:'hh:mm a'}} - {{slot.endTime | date:'hh:mm a'}}
+              </mat-chip-option>
+            </div>
+          </div>
+        </div>
+      </mat-chip-listbox>
+
+    </div>
+  </div>
+</div>
+
+<div class="fixed bottom-0 right-0 w-full bg-white shadow border-t">
+  <div class="flex justify-end py-4 mx-16">
+    <span class="mr-2">Selected: {{selectedAvailabilities.length}}</span>
+    <button color="primary" (click)="bookSlots()"
+            mat-stroked-button
+            [disabled]="selectedAvailabilities.length === 0">
+      Book Slots
+    </button>
+  </div>
+</div>

@@ -20,6 +20,14 @@ export class SlotDto {
 	@IsOptional()
 	@IsEnum(SlotStatus)
 	status: SlotStatus;
+
+	@ApiProperty({ type: 'number' })
+	@IsOptional()
+	studentId: number;
+
+	@ApiProperty({ type: 'number'})
+	@IsOptional()
+	coachId: number;
 }
 
 export class SlotsDto {

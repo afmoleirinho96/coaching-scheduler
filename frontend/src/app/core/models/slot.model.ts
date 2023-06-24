@@ -1,17 +1,27 @@
-export interface SlotsRequestBody {
-  slots: SlotRequest[];
+export interface SlotsAvailableRequest {
+  slots: SlotAvailableRequest[];
 }
 
-export interface SlotRequest {
+export interface SlotAvailableRequest {
   startTime: Date;
   endTime: Date;
+}
+
+export interface SlotsBookedRequest {
+  slotIds: number[];
+}
+
+export interface SlotScheduleRequest {
+  slotIds: string[];
 }
 
 export interface Slot {
   id: string;
   startTime: Date;
   endTime: Date;
-  status: SlotStatus
+  status: SlotStatus;
+  coachId: number;
+  studentId: number;
 }
 
 export enum SlotStatus {

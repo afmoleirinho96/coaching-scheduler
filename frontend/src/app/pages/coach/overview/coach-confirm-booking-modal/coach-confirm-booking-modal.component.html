@@ -1,0 +1,37 @@
+<mat-dialog-content class="!flex !flex-col !overflow-hidden h-[300px] !p-0 ">
+  <mat-toolbar cdkDragHandle class="cursor-move" color="primary">
+    <mat-toolbar-row class="flex justify-between">
+      <span class="font-bold">Confirm Lesson</span>
+      <button [mat-dialog-close]="false" aria-label="Close dialog" mat-icon-button>
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div class="flex flex-col justify-between flex-grow m-8">
+    <div *ngIf="data.slots.length" class="flex flex-col gap-y-4">
+      <p class="text-lg">
+        By confirming this lesson, it will be added to your calendar and scheduled.
+      </p>
+      <div *ngFor="let slot of data.slots" class="flex ">
+        <div class="mr-2">
+          <span class="text-base text-zinc-800 font-bold"> {{slot.startTime | date: 'EEEE MMM d'}}</span>
+        </div>
+        <p class="text-base text-zinc-800">{{slot.startTime | date: 'h:mm a'}} </p>
+        <p class="px-2"> - </p>
+        <p class="text-base text-zinc-800">{{slot.endTime | date: 'h:mm a'}}  </p>
+      </div>
+    </div>
+    <div class="flex justify-end gap-x-4 my-8">
+      <button mat-stroked-button
+              class="px-4 py-2 bg-gray-500 text-white rounded-md"
+              (click)="closeModal()">Cancel
+      </button>
+      <button mat-flat-button color="primary"
+              class="px-4 py-2 bg-blue-500 text-white rounded-md mr-2"
+              (click)="save()">Save
+      </button>
+    </div>
+
+  </div>
+</mat-dialog-content>
