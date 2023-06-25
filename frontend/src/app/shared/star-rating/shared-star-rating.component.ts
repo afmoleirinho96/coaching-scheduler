@@ -8,7 +8,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 @Component({
   selector: 'cs-shared-star-rating',
   templateUrl: './shared-star-rating.component.html',
-  styleUrls: ['./shared-star-rating.component.scss'],
   standalone: true,
   imports: [MatIconModule, MatButtonModule, CommonModule, MatTooltipModule]
 })
