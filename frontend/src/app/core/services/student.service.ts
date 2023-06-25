@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Slot } from '../models/slot.model';
-import { Student } from '../models/student.model';
+import { CreateStudentRequest, Student } from '../models/student.model';
 
 @Injectable({
   providedIn: 'root'
@@ -31,4 +31,9 @@ export class StudentService {
       })
     );
   }
+
+  createStudent(requestBody: CreateStudentRequest): Observable<Student> {
+    return this.http.post<Student>(`${environment.apiUrl}/students`, requestBody);
+  }
+
 }

@@ -1,7 +1,7 @@
-<mat-dialog-content class="!flex !flex-col !overflow-hidden h-[500px] !p-0 ">
+<mat-dialog-content class="!flex !flex-col !overflow-hidden h-[600px] !p-0 ">
   <mat-toolbar cdkDragHandle class="cursor-move" color="primary">
     <mat-toolbar-row class="flex justify-between">
-      <span class="font-bold">{{ 'Creating User' }}</span>
+      <span class="font-bold">Create {{ data.entity }}</span>
       <button [mat-dialog-close]="false" aria-label="Close dialog" mat-icon-button>
         <mat-icon>close</mat-icon>
       </button>
@@ -10,8 +10,8 @@
 
   <div class="flex flex-col justify-between flex-grow ">
 
-    <div class="m-16">
-      <form [formGroup]="form" class="flex flex-col gap-y-4">
+    <div class="m-12">
+      <form [formGroup]="form" class="flex flex-col gap-y-6">
         <mat-form-field class="w-full">
           <mat-label>Name</mat-label>
           <input formControlName="name" matInput placeholder="E.g. John Doe" type="text"/>
@@ -23,6 +23,25 @@
           <mat-hint>We strongly advise you to double check your email before saving!</mat-hint>
           <mat-error *ngIf="form.get('email')?.hasError('required')">Email is required.</mat-error>
           <mat-error *ngIf="form.get('email')?.hasError('email')">Invalid email address.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="data.entity === EntityType.COACH"  class="example-chip-list">
+          <mat-label>Expertises</mat-label>
+          <mat-chip-grid #chipGrid>
+            <mat-chip-row *ngFor="let expertise of expertises"
+                          (removed)="removeChip(expertise)"
+                          [editable]="true">
+              {{expertise}}
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+            <input placeholder="New expertise..."
+                   [matChipInputFor]="chipGrid"
+                   [disabled]="expertises.length >= 3"
+                   (matChipInputTokenEnd)="addChip($event)"/>
+          </mat-chip-grid>
+          <mat-hint>Enter the coach's areas of expertise, up to 3. Press Enter after each expertise you add.</mat-hint>
         </mat-form-field>
       </form>
     </div>

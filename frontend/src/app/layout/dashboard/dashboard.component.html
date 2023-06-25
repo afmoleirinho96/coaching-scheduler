@@ -14,8 +14,8 @@
     </div>
 
     <div class="flex items-center gap-x-10">
-      <cs-platform-toggle>
-      </cs-platform-toggle>
+      <cs-view-mode-toggle>
+      </cs-view-mode-toggle>
       <div class="flex gap-x-10">
 
         <button class="!bg-sky-900 !text-white hover:!border-sky-900'"
@@ -37,7 +37,51 @@
     </div>
   </div>
 
-  <h1 *ngIf="isDashboardRoute"> DASHBOARD</h1>
+  <div *ngIf="isDashboardRoute">
+    <div class="flex flex-col p-6 mt-16 ml-16 bg-gray-100 rounded-lg">
+      <h2 class="text-3xl font-semibold mb-4 text-sky-900">What Coaching Scheduling is all about:</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li class="text-lg text-gray-700">
+          <span class="font-semibold">Coaches can add slots of availability</span> to their calendars. Each slot is a 2-hour duration and can be booked by one student only.
+        </li>
+        <li class="text-lg text-gray-700">
+          <span class="font-semibold">Coaches can view their own upcoming schedules</span> to keep track of their appointments.
+        </li>
+        <li class="text-lg text-gray-700">
+          <span class="font-semibold">Students can view upcoming available times</span> across all coaches' calls, making it convenient for them to find suitable slots.
+        </li>
+        <li class="text-lg text-gray-700">
+          <span class="font-semibold">Students can book a 2-hour slot</span> for a coaching call with their preferred coach.
+        </li>
+        <li class="text-lg text-gray-700">
+          <span class="font-semibold">Coaches can confirm the slots booked</span> by students, marking those slots as scheduled to occur in the near future.
+        </li>
+        <li class="text-lg text-gray-700">
+          <span class="font-semibold">Coaches have access to their lesson history</span>, which includes details of each coaching session with every student.
+        </li>
+        <li class="text-lg text-gray-700">
+          <span class="font-semibold">Coaches can record the student's satisfaction level</span> (an integer from 1 to 5) and add free-form notes after completing a coaching lesson call.
+        </li>
+        <li class="text-lg text-gray-700">
+          <span class="font-semibold">Coaches can review their past scores and notes</span> for all of their calls, helping them keep track of their interactions with students.
+        </li>
+        <li class="text-lg text-gray-700">
+          <span class="font-semibold">Coaches can define their areas of expertise</span>, highlighting their most proficient areas of coaching.
+        </li>
+        <li class="text-lg text-gray-700">
+          <span class="font-semibold">Time slots are carefully managed</span> to avoid overlaps, ensuring that coaches cannot have two lessons scheduled simultaneously.
+        </li>
+        <li class="text-lg text-gray-700">
+          <span class="font-semibold">Business hours</span> are between 8:00 AM and 9:30 PM, so the latest start of a lesson call is at 7:30 PM.
+          <ul class="list-disc list-inside ml-4">
+            <li class="text-lg text-gray-700">
+              If you attempt to create an available slot for the current day after 7:30 PM, you will receive a friendly notification in the form of a <span class="font-semibold text-sky-900">snackbar</span> indicating that it is outside of business hours.
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
 
   <div class="overflow-auto">
     <div class="flex flex-col items-start mt-4 mb-16 mx-16">

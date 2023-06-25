@@ -7,3 +7,8 @@ export interface Student {
   slots: Slot[]
   createdAt: Date
 }
+
+export interface CreateStudentRequest {
+  name: string;
+  email: string;
+}

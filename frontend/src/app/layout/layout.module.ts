@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { PlatformToggleComponent } from './dashboard/platform-toggle/platform-toggle.component';
+import { ViewModeToggle } from './dashboard/view-mode-toggle/view-mode-toggle.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,10 +16,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatChipsModule } from '@angular/material/chips';
 
 
 @NgModule({
-  declarations: [DashboardComponent, PlatformToggleComponent, EntityModalComponent],
+  declarations: [DashboardComponent, ViewModeToggle, EntityModalComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -35,7 +36,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatToolbarModule,
     MatFormFieldModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatChipsModule
   ]
 })
 export class LayoutModule {

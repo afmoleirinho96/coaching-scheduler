@@ -5,6 +5,13 @@ export interface Coach {
   name: string;
   email: string;
   slots: Slot[]
-  expertises: string[]; // TODO - Add expertises for coaches
+  expertises?: string[];
   createdAt: Date
+}
+
+
+export interface CreateCoachRequest {
+  name: string;
+  email: string;
+  expertises?: string[];
 }

@@ -2,17 +2,20 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Coach } from '../../core/models/coach.model';
 import { Student } from '../../core/models/student.model';
 import { MatCardModule } from '@angular/material/card';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
+import { MatChipsModule } from '@angular/material/chips';
 
 
-export type CardData = Student | Coach;
+export type CardData = Coach | Student & {
+  expertises?: string[];
+};
+
 
 @Component({
-  selector: 'cs-card',
+  selector: 'cs-shared-card',
   templateUrl: './shared-card.component.html',
   standalone: true,
-  imports: [MatCardModule, MatProgressSpinnerModule, DatePipe]
+  imports: [MatCardModule, DatePipe, MatChipsModule, CommonModule]
 })
 
 export class SharedCardComponent<T> {
@@ -22,7 +25,10 @@ export class SharedCardComponent<T> {
 
   defaultAvatar = 'assets/images/avatar_student.svg';
 
-  constructor() {}
+
+  constructor() {
+
+  }
 
   cardClick(card: CardData) {
     this.cardClicked.emit(card);

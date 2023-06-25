@@ -3,9 +3,9 @@
     <mat-spinner color="primary" diameter="50"></mat-spinner>
     <p class="mt-8 text-[1em]">Loading Students...</p>
   </div>
-  <cs-card
+  <cs-shared-card
     *ngFor="let student of students$ | async"
     [data]="student"
     (cardClicked)="onStudentClicked($event)"
-  ></cs-card>
+  ></cs-shared-card>
 </div>

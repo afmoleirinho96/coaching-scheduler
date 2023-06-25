@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedSpinnerComponent } from './spinner/shared-spinner.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SharedCardComponent } from './card/shared-card.component';
+import { SharedStarRatingComponent } from './star-rating/shared-star-rating.component';
 
 const TOAST_TIMEOUT = 8000;
 
@@ -9,8 +11,9 @@ const TOAST_TIMEOUT = 8000;
   declarations: [],
   providers: [],
   imports: [
-    CommonModule,
-    BrowserAnimationsModule,
+    SharedSpinnerComponent,
+    SharedCardComponent,
+    SharedStarRatingComponent,
     ToastrModule.forRoot(
       {
         positionClass: 'toast-top-center',
@@ -19,8 +22,9 @@ const TOAST_TIMEOUT = 8000;
         preventDuplicates: true,
       }
     ),
+    MatProgressSpinnerModule,
   ],
-  exports: []
+  exports: [SharedCardComponent, SharedSpinnerComponent, SharedStarRatingComponent]
 })
 export class SharedModule {
 }

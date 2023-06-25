@@ -9,8 +9,7 @@ import { filter } from 'rxjs';
 
 @Component({
   selector: 'cs-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
 
@@ -31,10 +30,10 @@ export class DashboardComponent implements OnInit {
 
   addEntity(viewMode: ViewMode) {
 
-    const dialogRef = this.dialog.open(EntityModalComponent, {
+    this.dialog.open(EntityModalComponent, {
       width: '700px',
       panelClass: 'rootModal',
-      data: { viewMode }
+      data: { entity: viewMode.entity}
     });
   }
 

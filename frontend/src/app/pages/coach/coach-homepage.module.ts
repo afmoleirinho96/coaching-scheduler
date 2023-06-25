@@ -19,10 +19,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FilterStatusGroupByDatePipe } from '../../pipes/slot-filter.pipe';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { SharedCardComponent } from '../../shared/card/shared-card.component';
-import { CoachConfirmBookingModalComponent } from './overview/coach-confirm-booking-modal/coach-confirm-booking-modal.component';
+import { CoachActionModalComponent } from './overview/action-modal/coach-action-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { SharedModule } from '../../shared/shared.module';
+import { CoachLessonHistoryComponent } from './overview/coach-lesson-history/coach-lesson-history.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     CoachOverview,
     CoachAvailabilityComponent,
     FilterStatusGroupByDatePipe,
-    CoachConfirmBookingModalComponent
+    CoachActionModalComponent,
+    CoachLessonHistoryComponent,
   ],
   imports: [
     CommonModule,
@@ -53,9 +55,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatSnackBarModule,
     MatExpansionModule,
     MatTooltipModule,
-    SharedCardComponent,
     MatDialogModule,
-    MatToolbarModule
+    MatToolbarModule,
+    SharedModule
   ],
 })
 export class CoachHomepageModule {

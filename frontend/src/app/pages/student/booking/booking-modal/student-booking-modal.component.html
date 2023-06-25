@@ -29,9 +29,9 @@
           <div class="mr-2">
             <span class="text-base text-zinc-800 font-bold"> {{slot.startTime | date: 'EEEE MMM d'}}</span>
           </div>
-          <p class="text-base text-zinc-800">{{slot.startTime | date: 'h:mm a'}} </p>
+          <p class="text-base text-zinc-800">{{slot.startTime | date: 'h:mm a': 'UTC'}} </p>
           <p class="px-2"> - </p>
-          <p class="text-base text-zinc-800">{{slot.endTime | date: 'h:mm a'}}  </p>
+          <p class="text-base text-zinc-800">{{slot.endTime | date: 'h:mm a': 'UTC'}}  </p>
         </div>
       </div>
 

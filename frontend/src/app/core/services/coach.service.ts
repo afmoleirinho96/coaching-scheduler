@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { Coach } from '../models/coach.model';
+import { Coach, CreateCoachRequest } from '../models/coach.model';
 import { Slot } from '../models/slot.model';
 
 @Injectable({
@@ -30,5 +30,9 @@ export class CoachService {
         };
       })
     );
+  }
+
+  createCoach(createCoachDto: CreateCoachRequest): Observable<Coach> {
+    return this.http.post<Coach>(`${environment.apiUrl}/coaches`, createCoachDto);
   }
 }

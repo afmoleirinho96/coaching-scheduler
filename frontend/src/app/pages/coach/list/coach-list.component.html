@@ -1,11 +1,10 @@
 <div class="flex flex-row flex-wrap">
-  <div class="flex-col absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center gap-y-4" *ngIf="!(coaches$ | async)">
-    <mat-spinner color="primary" diameter="50"></mat-spinner>
-    <p class="mt-8 text-[1em]">Loading Coaches...</p>
-  </div>
-  <cs-card
+
+  <cs-shared-spinner [isLoading]="!(coaches$ | async)" [message]="'Loading Coaches...'"></cs-shared-spinner>
+
+  <cs-shared-card
     *ngFor="let coach of coaches$ | async"
     [data]="coach"
     (cardClicked)="onCoachClicked($event)"
-  ></cs-card>
+  ></cs-shared-card>
 </div>

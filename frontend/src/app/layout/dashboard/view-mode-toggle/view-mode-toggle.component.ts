@@ -1,23 +1,17 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { viewModes } from '../dashboard.config';
 import { ViewMode } from '../../../core/models/dashboard.model';
 
 @Component({
-  selector: 'cs-platform-toggle',
-  templateUrl: './platform-toggle.component.html',
-  styleUrls: ['./platform-toggle.component.scss'],
+  selector: 'cs-view-mode-toggle',
+  templateUrl: './view-mode-toggle.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PlatformToggleComponent implements OnInit {
+export class ViewModeToggle {
   viewModes: ViewMode[] = viewModes;
 
-
   constructor(private dialog: MatDialog) {}
-
-  ngOnInit(): void {
-
-  }
 
   closeDialog() {
     this.dialog.closeAll();

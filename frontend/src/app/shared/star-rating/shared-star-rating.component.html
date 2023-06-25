@@ -1,0 +1,11 @@
+<ng-container *ngIf="possibleRatings.length">
+  <button mat-icon-button
+          *ngFor="let rating of possibleRatings; index as starIndex"
+          (click)="applyRating(rating)"
+          [matTooltip]="rating+''"
+          matTooltipPosition="above">
+    <mat-icon class="text-amber-500">
+      {{currentRating > starIndex ? 'star' : 'star_border' }}
+    </mat-icon>
+  </button>
+</ng-container>

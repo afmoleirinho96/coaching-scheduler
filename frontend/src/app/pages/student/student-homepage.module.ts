@@ -4,7 +4,6 @@ import { StudentHomepageComponent } from './homepage/student-homepage.component'
 import { StudentHomepageRoutingModule } from './homepage/student-homepage-routing.module';
 import { StudentListComponent } from './list/student-list.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { SharedCardComponent } from '../../shared/card/shared-card.component';
 import { StudentBookingComponent } from './booking/student-booking.component';
 import { StudentRoutingModule } from './student-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -21,6 +20,7 @@ import { StudentBookingModalComponent } from './booking/booking-modal/student-bo
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SharedModule } from '../../shared/shared.module';
 
 
 @NgModule({
@@ -30,7 +30,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     StudentRoutingModule,
     StudentHomepageRoutingModule,
     MatProgressSpinnerModule,
-    SharedCardComponent,
     FormsModule,
     MatDatepickerModule,
     MatFormFieldModule,
@@ -45,7 +44,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatDialogModule,
     MatToolbarModule,
     MatSnackBarModule,
-    SharedCardComponent
+    SharedModule
   ]
 })
-export class StudentHomepageModule { }
+export class StudentHomepageModule {
+}

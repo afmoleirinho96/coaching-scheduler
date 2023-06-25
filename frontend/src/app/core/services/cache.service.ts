@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, shareReplay } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Coach } from '../models/coach.model';
 import { CoachService } from './coach.service';
 import { Student } from '../models/student.model';
@@ -10,8 +10,8 @@ import { StudentService } from './student.service';
 })
 export class CacheService {
 
-  private coaches$: Observable<Coach[]>;
-  private students$: Observable<Student[]>;
+  private coaches$: BehaviorSubject<Coach[]> = new BehaviorSubject<Coach[]>([]);
+  private students$: BehaviorSubject<Student[]> = new BehaviorSubject<Student[]>([]);
 
 
   constructor(
@@ -23,21 +23,33 @@ export class CacheService {
   }
 
   getCachedCoaches(): Observable<Coach[]> {
-    return this.coaches$;
+    return this.coaches$.asObservable();
+  }
+
+  updateCoaches(newCoach: Coach): void {
+    const currentCoaches = this.coaches$.getValue();
+    const updatedCoaches = [...currentCoaches, newCoach];
+    this.coaches$.next(updatedCoaches);
   }
 
   getCachedStudents(): Observable<Student[]> {
-    return this.students$;
+    return this.students$.asObservable();
+  }
+
+  updateStudents(newStudent: Student): void {
+    const currentStudents = this.students$.getValue();
+    const updatedStudents = [...currentStudents, newStudent];
+    this.students$.next(updatedStudents);
   }
 
   private cacheCoaches(): void {
-    this.coaches$ = this.coachService.getAllCoaches().pipe(
-      shareReplay())
+    this.coachService.getAllCoaches()
+      .subscribe(coaches => this.coaches$.next(coaches));
   }
 
   private cacheStudents(): void {
-    this.students$ = this.studentService.getAllStudents().pipe(
-      shareReplay())
+    this.studentService.getAllStudents()
+      .subscribe(students => this.students$.next(students));
   }
 
 }

@@ -1,6 +1,7 @@
 import { Coach } from './coach.model';
 import { Student } from './student.model';
 import { Slot } from './slot.model';
+import { ActionType } from '../../pages/coach/overview/coach-overview.component';
 
 export interface ViewMode {
   icon: string;
@@ -15,10 +16,7 @@ export enum EntityType {
 
 export interface EntityModalData {
   entity: EntityType,
-  entityData: Coach | Student
-  isCreateMode: boolean;
 }
-
 
 export interface StudentBookingModalData {
   coach: Coach;
@@ -26,7 +24,11 @@ export interface StudentBookingModalData {
   availabilities: Slot[]
 }
 
-export interface BookingConfirmModalData {
+export interface CoachActionModalData {
   coachId: number;
   slots: Slot[]
+  title: string;
+  description: string;
+  actionType: ActionType
+
 }

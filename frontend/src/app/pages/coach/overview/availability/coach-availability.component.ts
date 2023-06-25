@@ -50,11 +50,13 @@ export class CoachAvailabilityComponent {
     if (!this.form.valid) {
       return;
     }
+
     const { date, time } = this.form.value;
     const [hour, minute] = time.split(':').map(Number);
 
     const startTime = new Date(date);
-    startTime.setHours(hour, minute);
+    startTime.setHours(hour - (startTime.getTimezoneOffset() / 60), minute, 0, 0);
+
 
     const endTime = new Date(startTime);
     endTime.setHours(startTime.getHours() + 2);
@@ -99,8 +101,8 @@ export class CoachAvailabilityComponent {
 
     // Find and remove overlapping times from the generated slots
     for (let slot of slotsForSelectedDate) {
-      const startHour = slot.startTime.getHours() + slot.startTime.getMinutes() / 60;
-      const endHour = slot.endTime.getHours() + slot.endTime.getMinutes() / 60;
+      const startHour = slot.startTime.getUTCHours() + slot.startTime.getMinutes() / 60;
+      const endHour = slot.endTime.getUTCHours() + slot.endTime.getMinutes() / 60;
 
       allTimeSlots = allTimeSlots.filter(slot => {
         const slotStartHour = slotToHour(slot);
@@ -133,7 +135,6 @@ export class CoachAvailabilityComponent {
       .flatMap(hour => [hour + ":00", hour + ":30"]);
   }
 
-
   /**
    * Calculates and returns the next possible start hour based on the current time (for today date only).
    *
@@ -142,7 +143,7 @@ export class CoachAvailabilityComponent {
    * @returns {number} - The next possible start hour.
    */
   private getNextStartSlot(): number {
-    const currentHour = this.todayDate.getHours();
+    const currentHour = this.todayDate.getUTCHours();
     const currentMinute = this.todayDate.getMinutes();
     return currentMinute > 0 ? currentHour + 1 : currentHour;
   }

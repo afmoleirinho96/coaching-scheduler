@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Slot, SlotStatus } from '../../../core/models/slot.model';
 import { Student } from '../../../core/models/student.model';
@@ -6,7 +6,7 @@ import { StudentService } from '../../../core/services/student.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CacheService } from '../../../core/services/cache.service';
 import { Coach } from '../../../core/models/coach.model';
-import { map, Observable } from 'rxjs';
+import { Observable, of, Subject, takeUntil, tap } from 'rxjs';
 import { CoachService } from '../../../core/services/coach.service';
 import { SlotService } from '../../../core/services/slot.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -21,7 +21,7 @@ import { extractDate } from '../../../utils/date.utils';
   changeDetection: ChangeDetectionStrategy.OnPush
 
 })
-export class StudentBookingComponent implements OnInit {
+export class StudentBookingComponent implements OnInit, OnDestroy {
 
   student: Student;
   coaches$: Observable<Coach[]>;
@@ -39,6 +39,8 @@ export class StudentBookingComponent implements OnInit {
 
   selectedAvailabilities: Slot[] = [];
 
+  private unsubscribeAll$: Subject<void> = new Subject<void>();
+
   constructor(private readonly cacheService: CacheService,
               private readonly studentService: StudentService,
               private readonly coachService: CoachService,
@@ -54,27 +56,6 @@ export class StudentBookingComponent implements OnInit {
     this.listenToSelectedCoachChanges();
   }
 
-
-  private listenToSelectedCoachChanges() {
-    this.form.get('selectedCoach')?.valueChanges.subscribe((selectedCoach) => {
-      this.getCoachInfo(selectedCoach);
-    });
-  }
-
-  private getCoachInfo(selectedCoach: Coach) {
-    this.selectedCoach = selectedCoach
-    this.coachDetails$ = this.coachService.getCoachById(selectedCoach.id)
-
-    this.selectedCoachAvailability$ = this.coachDetails$.pipe(
-      map(coach => {
-        const availableSlots = coach.slots?.filter(slot => slot.status === SlotStatus.Available) ?? [];
-        this.hasAvailableSlots = !!availableSlots.length
-        return this.groupSlotsByDate(availableSlots);
-      })
-    );
-    this.cdr.markForCheck();
-  }
-
   onChipSelectionChange(availability: Slot) {
     const availabilityIndex = this.selectedAvailabilities.findIndex(selectedAvailability => selectedAvailability?.id === availability?.id);
 
@@ -83,11 +64,28 @@ export class StudentBookingComponent implements OnInit {
     } else {
       this.selectedAvailabilities.push(availability);
     }
-
   }
 
   bookSlots() {
     this.openBookSlotsModal();
+  }
+
+  private listenToSelectedCoachChanges() {
+    this.form.get('selectedCoach')?.valueChanges.pipe(takeUntil(this.unsubscribeAll$)).subscribe((selectedCoach) => {
+      this.getCoachInfo(selectedCoach);
+    });
+  }
+
+  private getCoachInfo(selectedCoach: Coach) {
+    this.selectedCoach = selectedCoach;
+    this.coachDetails$ = this.coachService.getCoachById(selectedCoach.id).pipe(
+      tap(coachDetails => {
+        const availableSlots = coachDetails.slots?.filter(slot => slot.status === SlotStatus.Available) ?? [];
+        this.hasAvailableSlots = !!availableSlots.length;
+        this.selectedCoachAvailability$ = of(this.groupSlotsByDate(availableSlots));
+      })
+    );
+    this.cdr.markForCheck();
   }
 
   private groupSlotsByDate(slots: Slot[]) {
@@ -130,5 +128,10 @@ export class StudentBookingComponent implements OnInit {
   private updateView() {
     this.getCoachInfo(this.selectedCoach);
     this.selectedAvailabilities = [];
+  }
+
+  ngOnDestroy() {
+    this.unsubscribeAll$.next();
+    this.unsubscribeAll$.complete();
   }
 }

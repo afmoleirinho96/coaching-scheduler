@@ -10,71 +10,60 @@
     <span class="flex text-xl text-sky-900 font-semibold">Choose your availability</span>
 
     <div class="flex place-items-center my-4 gap-x-2">
-      <mat-icon>schedule</mat-icon>
+      <mat-icon>hourglass_empty</mat-icon>
       <span class="text-base">Lessons are available from 8:00 AM to 9:30 PM, with the latest starting at 7:30 PM. Each lesson has a duration of 2 hours.</span>
     </div>
 
+    <div class="flex flex-row justify-between items-center">
+      <cs-coach-availability
+        [coach]="coach"
+        (availabilityUpdated)="onSlotsUpdated($event)"
+      ></cs-coach-availability>
 
-    <cs-coach-availability
-      [coach]="coach"
-      (availabilityUpdated)="onSlotsUpdated($event)"
-    ></cs-coach-availability>
+      <div class="example-button-container">
+        <button mat-stroked-button
+                matTooltip="View your lesson history"
+                matTooltipPosition="above"
+                color="primary" (click)="navigateToLessonHistory()">
+          <mat-icon>history</mat-icon>
+          History
+        </button>
+      </div>
+    </div>
   </div>
 
   <div class="border-b-2 border-stone-300 my-8"></div>
-
-
   <div class="flex w-full gap-x-8 mt-4">
-
     <div class="flex w-full flex-col overflow-y-auto">
 
       <ng-container
         *ngTemplateOutlet="statusSectionTemplate;
         context: { slots: coach.slots | filterStatusGroupByDate: SlotStatus.Available , title: 'Available', description: 'Your current available time slots.' }">
       </ng-container>
-
-      <!-- <div class="text-grey-500 italic cursor-pointer hover:text-blue-700" (click)="showPastLessons = !showPastLessons">
-         {{ showPastLessons ? 'Hide past lessons...' : 'Show past lessons...' }}
-       </div>-->
-
-      <ng-container *ngIf="showPastLessons">
-        <ng-container
-          *ngTemplateOutlet="statusSectionTemplate;
-          context: { slots: coach.slots | filterStatusGroupByDate: SlotStatus.Past , title: 'Past Lessons', description: 'Your current available time slots' }">
-        </ng-container>
-      </ng-container>
     </div>
 
     <div class="flex w-full gap-x-4">
       <mat-accordion class="w-full">
-
         <ng-container
           *ngTemplateOutlet="statusSectionTemplate;
-          context: { slots: coach.slots | filterStatusGroupByDate: SlotStatus.Booked, title: 'Booked', description: 'Slots booked by student, pending confirmation.', action: { type: 'confirm' } }">
+          context: { slots: coach.slots | filterStatusGroupByDate: SlotStatus.Booked, title: 'Booked', description: 'Slots booked by student, pending confirmation.', action: actionMappings.confirm }">
         </ng-container>
-
       </mat-accordion>
     </div>
 
     <div class="flex w-full gap-x-4">
       <mat-accordion class="w-full">
-
         <ng-container
           *ngTemplateOutlet="statusSectionTemplate;
-          context: { slots: coach.slots | filterStatusGroupByDate: SlotStatus.Scheduled , title: 'Scheduled', description: 'Current scheduled lessons.', action: { type: 'simulate lesson' } }">
-
+          context: { slots: coach.slots | filterStatusGroupByDate: SlotStatus.Scheduled , title: 'Scheduled', description: 'Current scheduled lessons.', action: actionMappings['simulate-lesson'] }">
         </ng-container>
-
       </mat-accordion>
     </div>
 
   </div>
 </div>
 
-
 <ng-template #statusSectionTemplate let-groups="slots" let-title="title" let-description="description" let-action="action">
-
-
   <div class="flex flex-col p-2 pb-0 bg-gray-100 rounded-t-md mb-2">
     <h2 class="flex items-center text-lg text-sky-900 font-semibold">
       {{ title }}
@@ -82,7 +71,6 @@
     <span class="text-base -mt-2">{{description}}</span>
   </div>
   <div class="overflow-y-auto">
-
 
     <div class="max-h-[400px]">
       <div class="p-2">
@@ -96,18 +84,18 @@
               </div>
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <div class="flex items-center justify-between mt-2 px-4 rounded-xl hover:bg-gray-50" *ngFor="let slot of group.slots">
-
+          <div class="flex items-center justify-between mt-2 px-2 min-h-[70px] rounded-xl hover:bg-stone-100"
+               *ngFor="let slot of group.slots">
             <div class="text-gray-500 text-sm ml-2">
-              {{ slot.startTime | date: 'h:mm a' }} - {{ slot.endTime | date: 'h:mm a' }}
+              {{ slot.startTime | date: 'h:mm a' : 'UTC' }} - {{ slot.endTime | date: 'h:mm a' : 'UTC' }}
             </div>
             <mat-action-row *ngIf="action" class="!border-hidden">
               <button mat-stroked-button
-                      (click)="executeAction(slot)"
+                      (click)="executeAction(action, slot)"
                       color="primary"
                       class="transition ease-in-out delay-300"
               >
-                {{action.type | titlecase}}
+                {{action.title}}
               </button>
             </mat-action-row>
           </div>
