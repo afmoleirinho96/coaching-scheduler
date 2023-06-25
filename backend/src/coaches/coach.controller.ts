@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { Coach } from '../typeorm';
 import { CoachService } from './coach.service';
-import { ApiBadRequestResponse, ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOkResponse, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CoachDto } from '../dtos/Coach.dto';
 import { CreateCoachDto } from '../dtos/CreateCoach.dto';
 
@@ -27,9 +27,9 @@ export class CoachController {
 
 	@Post()
 	@ApiOperation({ summary: 'Create a coach' })
-	@ApiCreatedResponse({ type: CoachDto })
-	@ApiBadRequestResponse()
-	@HttpCode(201)
+	@ApiBody({ type: CreateCoachDto })
+	@ApiResponse({ status: 201, description: 'Coach created successfully', type: CoachDto })
+	@ApiResponse({ status: 400, description: 'Bad request, could not create coach' })
 	@UsePipes(new ValidationPipe({ transform: true }))
 	async createCoach(@Body() createCoachDTO: CreateCoachDto): Promise<CoachDto> {
 		return this.coachService.createCoach(createCoachDTO);

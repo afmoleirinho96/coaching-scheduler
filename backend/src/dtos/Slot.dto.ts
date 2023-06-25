@@ -1,11 +1,12 @@
-import { IsArray, IsDateString, IsEnum, IsOptional, ValidateNested } from 'class-validator';
+import { IsArray, IsDateString, IsEnum, IsNumber, IsOptional, ValidateNested } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { SlotStatus } from '../interfaces/slot-status.enum';
 import { Type } from 'class-transformer';
 
 export class SlotDto {
-	@ApiProperty()
+
 	@IsOptional()
+	@IsNumber()
 	id: number;
 
 	@ApiProperty({ type: Date, format: 'date-time' })
@@ -21,13 +22,14 @@ export class SlotDto {
 	@IsEnum(SlotStatus)
 	status: SlotStatus;
 
-	@ApiProperty({ type: 'number' })
+	@IsNumber()
 	@IsOptional()
 	studentId: number;
 
-	@ApiProperty({ type: 'number'})
+	@IsNumber()
 	@IsOptional()
 	coachId: number;
+
 }
 
 export class SlotsDto {

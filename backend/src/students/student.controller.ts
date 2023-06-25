@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { Student } from '../typeorm';
 import { StudentService } from './student.service';
-import { ApiBadRequestResponse, ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOkResponse, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { StudentDto } from '../dtos/Student.dto';
 import { CreateStudentDto } from '../dtos/CreateStudent.dto';
 
@@ -27,9 +27,9 @@ export class StudentController {
 
 	@Post()
 	@ApiOperation({ summary: 'Create a student' })
-	@ApiCreatedResponse({ type: StudentDto })
-	@ApiBadRequestResponse()
-	@HttpCode(201)
+	@ApiBody({ type: CreateStudentDto })
+	@ApiResponse({ status: 201, description: 'Student created successfully', type: StudentDto })
+	@ApiResponse({ status: 400, description: 'Bad request, could not create student' })
 	@UsePipes(new ValidationPipe({ transform: true }))
 	async createStudent(@Body() createStudentDto: CreateStudentDto): Promise<StudentDto> {
 		return this.studentService.createStudent(createStudentDto);

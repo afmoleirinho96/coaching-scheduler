@@ -41,7 +41,6 @@ export class SlotService {
 		const foundSlots: Slot[] = await this.slotRepository.find({
 			where: {
 				id: In(updateSlotStatus.slotIds),
-				studentId: studentId,
 			},
 		});
 

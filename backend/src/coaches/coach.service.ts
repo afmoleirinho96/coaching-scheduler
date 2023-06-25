@@ -44,4 +44,12 @@ export class CoachService {
 		return plainToClass(CoachDto, createdCoach);
 	}
 
+	async deleteCoach(id: number): Promise<void> {
+		const result = await this.coachRepository.delete(id);
+
+		if (result.affected === 0) {
+			throw new NotFoundException(`Coach with ID '${id}' not found`);
+		}
+	}
+
 }

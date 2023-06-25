@@ -29,6 +29,6 @@ export class Slot {
 	@JoinColumn({ name: 'studentId', referencedColumnName: 'id' })
 	student: Student;
 
-	@Column( {nullable: true})
+	@Column({ nullable: true })
 	studentId: number;
 }

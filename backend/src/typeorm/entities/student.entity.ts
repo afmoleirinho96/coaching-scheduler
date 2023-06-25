@@ -20,6 +20,6 @@ export class Student extends BaseEntity{
 	email: string;
 
 	@OneToMany(() => Slot, slot => slot.student)
-	@JoinColumn({ name: 'studentId' })
+	@JoinColumn({ name: 'student' })
 	slots: Slot[];
 }

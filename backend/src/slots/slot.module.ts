@@ -5,7 +5,7 @@ import { SlotService } from './slot.service';
 import { SlotController } from './slot.controller';
 
 @Module({
-	imports: [TypeOrmModule.forFeature([Slot, Coach]),],
+	imports: [TypeOrmModule.forFeature([Slot, Coach])],
 	controllers: [SlotController],
 	providers: [SlotService]
 })

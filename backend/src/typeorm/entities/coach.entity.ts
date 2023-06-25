@@ -21,4 +21,7 @@ export class Coach extends BaseEntity {
 	@OneToMany(() => Slot, slot => slot.coach)
 	@JoinColumn({ name: 'coachId' })
 	slots: Slot[];
+
+	@Column("text", { array: true, nullable: true })
+	expertises: string[];
 }

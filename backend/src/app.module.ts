@@ -1,12 +1,11 @@
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { CoachModule } from './coaches/coach.module';
 import { SlotModule } from './slots/slot.module';
 import { typeOrmConfig } from './typeorm/config/database-config';
 import { StudentModule } from './students/student.module';
+import { LessonModule } from './lessons/lesson.module';
 
 @Module({
 	imports: [
@@ -15,9 +14,10 @@ import { StudentModule } from './students/student.module';
 		CoachModule,
 		SlotModule,
 		StudentModule,
+		LessonModule
 	],
-	controllers: [AppController],
-	providers: [AppService],
+	controllers: [],
+	providers: [],
 })
 export class AppModule {
 }
