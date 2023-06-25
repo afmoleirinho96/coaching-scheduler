@@ -32,7 +32,11 @@ To run the Coaching Scheduler project, follow these steps:
 
 ### Database
 
-Configure the PostgreSQL connection in the backend's .env file. An example file will help you understand which variables are needed to setup the database succesfully - `.env-example` file
+Configure the PostgreSQL connection in the backend's .env file. 
+An example file will help you understand which variables are needed to setup the database succesfully - `.env-example` file
+
+Don't forget to name your .env file as `.env` and place it in the backend folder.
+
 
 ### Backend
 
