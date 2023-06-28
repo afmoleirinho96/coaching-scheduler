@@ -4,6 +4,7 @@ import { Student } from '../../core/models/student.model';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule, DatePipe } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 export type CardData = Coach | Student & {
@@ -15,7 +16,7 @@ export type CardData = Coach | Student & {
   selector: 'cs-shared-card',
   templateUrl: './shared-card.component.html',
   standalone: true,
-  imports: [MatCardModule, DatePipe, MatChipsModule, CommonModule]
+  imports: [MatCardModule, DatePipe, MatChipsModule, CommonModule, MatTooltipModule]
 })
 
 export class SharedCardComponent<T> {
